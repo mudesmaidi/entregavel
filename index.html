@@ -51,8 +51,19 @@
       s.parentNode.insertBefore(t,s)
     }(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
+    
     fbq('init', '1032225729043782');
-    fbq('track', 'Purchase', {value: 10.00, currency: 'BRL'});
+    fbq('track', 'PageView');
+    
+    // Disparar evento de Purchase após o carregamento da página
+    window.addEventListener('load', function() {
+      fbq('track', 'Purchase', {
+        value: 10.00, 
+        currency: 'BRL',
+        content_name: 'Conteúdo Geovana Morais',
+        content_type: 'product'
+      });
+    });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
@@ -61,6 +72,15 @@
 
   <script>
     setTimeout(() => {
+      // Disparar evento de clique/conversão antes do redirecionamento
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {
+          content_name: 'Acesso ao Conteúdo',
+          value: 10.00,
+          currency: 'BRL'
+        });
+      }
+      
       window.location.href = "https://drive.google.com/drive/folders/16RxtqdcuK83dtI-V3jNVyVH-KmNsQ3aH?usp=sharing";
     }, 5000);
   </script>
