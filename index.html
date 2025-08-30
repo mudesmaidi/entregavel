@@ -52,7 +52,6 @@
     }(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1032225729043782');
-    fbq('track', 'Purchase', {value: 10.00, currency: 'BRL'});
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
@@ -60,6 +59,13 @@
   </noscript>
 
   <script>
+    // Dispara Purchase apenas uma vez
+    if (!localStorage.getItem('jaComprou')) {
+      fbq('track', 'Purchase', {value: 10.00, currency: 'BRL'});
+      localStorage.setItem('jaComprou', 'true');
+    }
+
+    // Redireciona após 5 segundos
     setTimeout(() => {
       window.location.href = "https://drive.google.com/drive/folders/10KK3rySemEd7yvfLretxac_4niXhj5An?usp=sharing";
     }, 5000);
